@@ -2,7 +2,7 @@
 django-guestbook 
 =======================================
 
-*This is RedsolutionCMS fork. See original version at: asdf*
+*This is RedsolutionCMS fork. See original version at: https://github.com/dokterbob/django-guestbook*
 
 A simple guestbook application for Django
 -----------------------------------------

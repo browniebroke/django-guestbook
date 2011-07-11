@@ -6,8 +6,7 @@ from models import Entry
 from forms import EntryForm
 from views import post_entry
 
-list_dict = { 'queryset' : Entry.objects.filter(is_removed=False),
-              'paginate_by' : 5,
+list_dict = { 'queryset' : Entry.objects.filter(visible=True),
               'template_object_name' : 'entry',
               'extra_context' : {'form' : EntryForm(), } }
 
@@ -22,4 +21,3 @@ urlpatterns = patterns('',
     url(r'^page(?P<page>[0-9]+)/$', object_list, page_dict, name='guestbook-page'),
     url(r'^post/', post_entry, name='guestbook-post'),
 )
-

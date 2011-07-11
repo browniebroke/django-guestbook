@@ -1,6 +1,9 @@
-================
-django-guestbook
-================
+=======================================
+django-guestbook 
+=======================================
+
+*This is RedsolutionCMS fork. See original version at: asdf*
+
 A simple guestbook application for Django
 -----------------------------------------
 
@@ -26,35 +29,43 @@ Installation
 ============
 #)  Get it from the Cheese Shop::
     
-	easy_install django-guestbook
+     easy_install django-guestbook
     
     **Or** get the latest & greatest from Github and link it to your
     application tree::
     
-	git clone git://github.com/dokterbob/django-guestbook.git
-	ln -s django-guestbook/guestbook $PROJECT_DIR/guestbook
+     git clone git://github.com/dokterbob/django-guestbook.git
+     ln -s django-guestbook/guestbook $PROJECT_DIR/guestbook
     
     (Here `$PROJECT_DIR` is your project root directory.)
     
 #)  Add popularity to `INSTALLED_APPS` in settings.py::
 
-	INSTALLED_APPS = (
-	    ...
-	    'guestbook',
-	    ...
-	)
+     INSTALLED_APPS = (
+         ...
+         'guestbook',
+         ...
+     )
 
 #)  Create required data structure::
 
-	cd $PROJECT_DIR
-	./manage.py syncdb
+     cd $PROJECT_DIR
+     ./manage.py syncdb
 
 #)  Add guestbook views to `urls.py`::
 
-	urlpatterns += patterns('',
-	    ...
-	    (r'^guestbook/', include('guestbook.urls')),
-	    ...
-	)
+     urlpatterns += patterns('',
+         ...
+         (r'^guestbook/', include('guestbook.urls')),
+         ...
+     )
 
 #)  Enjoy!
+
+
+Differences in this branch
+==========================
+
+#) All templates extended from project's ``base.html``
+#) Removed debug in "400" template
+#) Changed models

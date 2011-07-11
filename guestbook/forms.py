@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import re
 import time
 import datetime
@@ -14,19 +16,18 @@ from django.utils.translation import ugettext_lazy as _
 
 from models import Entry
 
-GUESTBOOK_ENTRY_MAX_LENGTH = getattr(settings,'GUESTBOOK_ENTRY_MAX_LENGTH', 3000)
+GUESTBOOK_ENTRY_MAX_LENGTH = getattr(settings, 'GUESTBOOK_ENTRY_MAX_LENGTH', 3000)
 
 class EntryForm(forms.Form):
-    name          = forms.CharField(label=_("Name"), max_length=50)
-    email         = forms.EmailField(label=_("Email address"))
-    url           = forms.URLField(label=_("URL"), required=False)
-    text       = forms.CharField(label=_('Comment'), widget=forms.Textarea,
+    name = forms.CharField(label=_('Your name'), max_length=50)
+    email = forms.CharField(label=_('Email'), max_length=100, required=False)
+    text = forms.CharField(label=_('Comment'), widget=forms.Textarea,
                                     max_length=GUESTBOOK_ENTRY_MAX_LENGTH)
-    honeypot      = forms.CharField(required=False,
+    honeypot = forms.CharField(required=False,
                                     label=_('If you enter anything in this field '\
                                             'your text will be treated as spam'))
-    
-    timestamp     = forms.IntegerField(widget=forms.HiddenInput)
+
+    timestamp = forms.IntegerField(widget=forms.HiddenInput)
     security_hash = forms.CharField(min_length=40, max_length=40, widget=forms.HiddenInput)
 
     def __init__(self, data=None, initial=None):
@@ -48,21 +49,19 @@ class EntryForm(forms.Form):
             raise ValueError("get_entry_object may only be called on valid forms")
 
         new = Entry(
-            name    = self.cleaned_data["name"],
-            email   = self.cleaned_data["email"],
-            url     = self.cleaned_data["url"],
-            text      = self.cleaned_data["text"],
-            submit_date  = datetime.datetime.now(),
-            site_id      = settings.SITE_ID,
-            is_removed   = False,
+            name=self.cleaned_data["name"],
+            email=self.cleaned_data["email"],
+            text=self.cleaned_data["text"],
+            submit_date=datetime.datetime.now(),
+            site_id=settings.SITE_ID,
+            visible=False,
         )
 
         # Check that this comment isn't duplicate. (Sometimes people post comments
         # twice by mistake.) If it is, fail silently by returning the old comment.
         possible_duplicates = Entry.objects.filter(
-            name = new.name,
-            email = new.email,
-            url = new.url,
+            name=new.name,
+            email=new.email,
         )
         for old in possible_duplicates:
             if old.submit_date.date() == new.submit_date.date() and old.text == new.text:
@@ -96,33 +95,17 @@ class EntryForm(forms.Form):
             raise forms.ValidationError("Security hash check failed.")
         return actual_hash
 
-    def clean_timestamp(self):
-        """Make sure the timestamp isn't too far (> 2 hours) in the past."""
-        ts = self.cleaned_data["timestamp"]
-        if time.time() - ts > (2 * 60 * 60):
-            raise forms.ValidationError("Timestamp check failed")
-        return ts
-
-    def clean_text(self):
-        """
-        If COMMENTS_ALLOW_PROFANITIES is False, check that the comment doesn't
-        contain anything in PROFANITIES_LIST.
-        """
-        text = self.cleaned_data["text"]
-        if settings.COMMENTS_ALLOW_PROFANITIES == False:
-            bad_words = [w for w in settings.PROFANITIES_LIST if w in text.lower()]
-            if bad_words:
-                plural = len(bad_words) > 1
-                raise forms.ValidationError(ngettext(
-                    "Watch your mouth! The word %s is not allowed here.",
-                    "Watch your mouth! The words %s are not allowed here.", plural) % \
-                    get_text_list(['"%s%s%s"' % (i[0], '-'*(len(i)-2), i[-1]) for i in bad_words], 'and'))
-        return text
+#    def clean_timestamp(self):
+#        """Make sure the timestamp isn't too far (> 2 hours) in the past."""
+#        ts = self.cleaned_data["timestamp"]
+#        if time.time() - ts > (2 * 60 * 60):
+#            raise forms.ValidationError("Timestamp check failed")
+#        return ts
 
     def generate_security_data(self):
         """Generate a dict of security data for "initial" data."""
         timestamp = int(time.time())
-        security_dict =   {
+        security_dict = {
             'timestamp'     : str(timestamp),
             'security_hash' : self.initial_security_hash(timestamp),
         }

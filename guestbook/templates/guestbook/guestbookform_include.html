@@ -1,0 +1,11 @@
+{% load i18n %}
+{% for field in form %}
+    {% if field.is_hidden %}
+        {{ field }}
+    {% else %}
+    <p {% if field.name == "honeypot" %} style="display:none;"{% endif %}>
+        {% if field.errors %}{{ field.errors }}{% endif %}
+        {{ field.label_tag }} {{ field }}
+    </p>
+    {% endif %}
+{% endfor %}

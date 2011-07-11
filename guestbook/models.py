@@ -11,6 +11,8 @@ GUESTBOOK_ENTRY_MAX_LENGTH = getattr(settings, 'GUESTBOOK_ENTRY_MAX_LENGTH', 300
 class Entry(models.Model):
     class Meta:
         ordering = ['-submit_date', 'name']
+        verbose_name = _('Guestbook entry')
+        verbose_name_plural = _('Guestbook entries')
 
     site = models.ForeignKey(Site)
 

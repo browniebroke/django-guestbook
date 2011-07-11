@@ -9,8 +9,8 @@
     {% if entry_list %}
         <ul>
         {% for entry in entry_list %}
-            <li>
-                <div class="entry-left">
+            <li class="entry_{% cycle 'even' 'odd' %}">
+                <div class="entry-header">
                     <div class="entry-name">{{ entry.name }}</div>
                     <div class="entry-date">{{ entry.submit_date|date:"j.m.Y" }}, {{ entry.submit_date|date:"G:i" }}</div>
                 </div>
@@ -27,21 +27,11 @@
 </div>
 
 <form action="{% url guestbook-post %}" method="POST">
-    {% for field in form %}
-      {% if field.is_hidden %}
-        {{ field }}
-      {% else %}
-        <p
-          {% if field.errors %} class="error"{% endif %}
-          {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
-          {% if field.errors %}{{ field.errors }}{% endif %}
-          {{ field.label_tag }} {{ field }}
-        </p>
-      {% endif %}
-    {% endfor %}
+    {% include "guestbook/guestbookform_include.html" %}
     <p class="submit">
-      <input type="submit" name="submit" class="submit-post" value="Post" />
-      <input type="submit" name="submit" class="submit-preview" value="Preview" />
+    <input type="submit" name="submit" class="submit-post" value="{% trans 'Post' %}" />
+    <input type="submit" name="preview" class="submit-preview" value="{% trans 'Preview' %}" />
     </p>
+    
 </form>
 {% endblock content %}

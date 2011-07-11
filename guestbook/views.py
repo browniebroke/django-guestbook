@@ -25,6 +25,7 @@ def post_entry(request, next=None):
 
     # Fill out some initial data fields from an authenticated user, if present
     data = request.POST.copy()
+
     if request.user.is_authenticated():
         if not data.get('name', ''):
             data["name"] = request.user.get_full_name()
@@ -46,8 +47,9 @@ def post_entry(request, next=None):
 
     # If there are errors or if we requested a preview show the entry
     if form.errors or preview:
-        return render_to_response("guestbook/preview.html", {"form" : form, },
-            RequestContext(request, {})
+        return render_to_response("guestbook/preview.html", {
+            'form' : form, 'entry': data
+            }, RequestContext(request)
         )
 
     # Otherwise create the entry

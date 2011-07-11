@@ -1,0 +1,17 @@
+{% extends 'guestbook/base.html' %}
+{% load i18n %}
+
+{% block content_title %}Guestbook{% endblock %}
+
+{% block content %} 
+	<h3>{% trans "Thank you for your mention" %}</h3>
+	<p>{% blocktrans %}
+		Thank you for your mention!<br/>
+		Feedback posted for review and will be published soon
+        time, if approved by the administrator.<br/>
+        {% endblocktrans %}
+	</p><br/>
+	
+	&larr; <a href="{% url guestbook-page-last %}">{% trans "Back to guestbook page" %}</a>
+
+{% endblock content %}

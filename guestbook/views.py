@@ -1,13 +1,13 @@
 from django import http
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.html import escape
-from django.core.urlresolvers import reverse
-from utils import render_to
 from forms import EntryForm
+from utils import render_to
 
 
 @render_to('guestbook/thankyou.html')

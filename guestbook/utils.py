@@ -1,4 +1,6 @@
 from django.template.context import RequestContext
+from functools import wraps
+from django.shortcuts import render_to_response
 
 def render_to(template):
     """
@@ -16,12 +18,13 @@ def render_to(template):
 
      - template: template name to use
     """
-    @wraps(func)
-    def wrapper(request, *args, **kw):
-        output = func(request, *args, **kw)
-        if isinstance(output, (list, tuple)):
-            return render_to_response(output[1], output[0], RequestContext(request))
-        elif isinstance(output, dict):
-            return render_to_response(template, output, RequestContext(request))
-        return output
-    return wrapper
+    def renderer(func):
+        def wrapper(request, *args, **kw):
+            output = func(request, *args, **kw)
+            if isinstance(output, (list, tuple)):
+                return render_to_response(output[1], output[0], RequestContext(request))
+            elif isinstance(output, dict):
+                return render_to_response(template, output, RequestContext(request))
+            return output
+        return wrapper
+    return renderer

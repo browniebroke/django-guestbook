@@ -95,12 +95,12 @@ class EntryForm(forms.Form):
             raise forms.ValidationError("Security hash check failed.")
         return actual_hash
 
-#    def clean_timestamp(self):
-#        """Make sure the timestamp isn't too far (> 2 hours) in the past."""
-#        ts = self.cleaned_data["timestamp"]
-#        if time.time() - ts > (2 * 60 * 60):
-#            raise forms.ValidationError("Timestamp check failed")
-#        return ts
+    def clean_timestamp(self):
+        """Make sure the timestamp isn't too far (> 2 hours) in the past."""
+        ts = self.cleaned_data["timestamp"]
+        if time.time() - ts > (2 * 60 * 60):
+            raise forms.ValidationError("Timestamp check failed")
+        return ts
 
     def generate_security_data(self):
         """Generate a dict of security data for "initial" data."""

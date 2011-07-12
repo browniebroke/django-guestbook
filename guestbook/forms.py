@@ -18,6 +18,15 @@ from models import Entry
 
 GUESTBOOK_ENTRY_MAX_LENGTH = getattr(settings, 'GUESTBOOK_ENTRY_MAX_LENGTH', 3000)
 
+# Django-simple-catpcha integration
+import guestbook.settings as guestbook_settings
+try:
+    from captcha.fields import CaptchaField
+    USE_CAPTCHA = guestbook_settings.USE_CAPTCHA
+except:
+    USE_CAPTCHA = False
+
+
 class EntryForm(forms.Form):
     name = forms.CharField(label=_('Your name'), max_length=50)
     email = forms.CharField(label=_('Email'), max_length=100, required=False)
@@ -29,6 +38,9 @@ class EntryForm(forms.Form):
 
     timestamp = forms.IntegerField(widget=forms.HiddenInput)
     security_hash = forms.CharField(min_length=40, max_length=40, widget=forms.HiddenInput)
+    if USE_CAPTCHA:
+        captcha = CaptchaField(label=_('Enter text from image'))
+
 
     def __init__(self, data=None, initial=None):
         if initial is None:

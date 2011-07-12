@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-11 19:01+0600\n"
-"PO-Revision-Date: 2011-07-11 19:09\n"
+"POT-Creation-Date: 2011-07-12 19:02+0600\n"
+"PO-Revision-Date: 2011-07-12 19:03+0600\n"
 "Last-Translator:   <webmaster@redsolution.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,69 +17,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.6.2\n"
 
-#: forms.py:22
+#: forms.py:31
 msgid "Your name"
 msgstr "Ваше имя"
 
-#: forms.py:23
+#: forms.py:32
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:24
+#: forms.py:33
 msgid "Comment"
 msgstr "Комментарий"
 
-#: forms.py:27
+#: forms.py:36
 msgid "If you enter anything in this field your text will be treated as spam"
 msgstr ""
-"Если вы введете что-либо в этой области, ваш текст будет "
-"рассматриваться как спам"
+"Если вы введете что-либо в этой области, ваш текст будет рассматриваться как "
+"спам"
 
-#: models.py:18
-msgid "date"
-msgstr "дата"
+#: forms.py:42
+msgid "Enter text from image"
+msgstr "Введите текст с картинки"
 
-#: models.py:19
-msgid "IP address"
-msgstr "IP-адрес"
-
-#: models.py:20
-msgid "name"
-msgstr "имя"
-
-#: models.py:21
-msgid "e-mail"
-msgstr "электронная почта"
-
-#: models.py:24
-msgid "Check to show entry on site"
-msgstr "Отметьте, чтобы показать запись на сайте"
-
-#: models.py:26
-msgid "comment"
-msgstr "комментарий"
-
-#: models.py:29
+#: models.py:14
 #, fuzzy
 msgid "Guestbook entry"
 msgstr "Гостевая книга"
 
-#: models.py:30
+#: models.py:15
 #, fuzzy
 msgid "Guestbook entries"
 msgstr "Гостевая книга"
 
-#: models.py:31
+#: models.py:19
+msgid "date"
+msgstr "дата"
+
+#: models.py:20
+msgid "IP address"
+msgstr "IP-адрес"
+
+#: models.py:21
+msgid "name"
+msgstr "имя"
+
+#: models.py:22
+msgid "e-mail"
+msgstr "электронная почта"
+
+#: models.py:25
+msgid "Check to show entry on site"
+msgstr "Отметьте, чтобы показать запись на сайте"
+
+#: models.py:27
+msgid "comment"
+msgstr "комментарий"
+
+#: models.py:30
 #, fuzzy, python-format
 msgid "%(name)s on %(date)s"
 msgstr "%(name)s от %(date)s"
 
-#: models.py:36 templates/guestbook/entry_list.html:33
+#: models.py:35 templates/guestbook/entry_list.html:33
 #: templates/guestbook/preview.html:37
 msgid "Preview"
 msgstr "Предварительный просмотр"
 
 #: templates/guestbook/entry_list.html:4 templates/guestbook/preview.html:4
+#: templates/guestbook/thankyou.html:4
 msgid "Guestbook"
 msgstr "Гостевая книга"
 
@@ -125,16 +130,9 @@ msgid ""
 msgstr ""
 "\n"
 "Благодарим Вас за отзыв! <br/>\n"
-"Отзыв отправлен на рассмотрение и будет опубликован в ближайшее время, в случае одобрения администратором. <br/>"
+"Отзыв отправлен на рассмотрение и будет опубликован в ближайшее время, в "
+"случае одобрения администратором. <br/>"
 
 #: templates/guestbook/thankyou.html:15
 msgid "Back to guestbook page"
 msgstr "Вернуться к гостевой книге"
-
-#: models.py:14
-msgid "Guestbook entry"
-msgstr "Запись в гостевой книге"
-
-#: models.py:15
-msgid "Guestbook entries"
-msgstr "Записи в гостевой книге"

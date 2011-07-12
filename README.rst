@@ -62,6 +62,18 @@ Installation
 
 #)  Enjoy!
 
+Avaliable settings
+==================
+
+GUESTBOOK_USE_CAPTCHA:
+    If ``django-simple-captcha`` is used in your project, guestbook post
+    form wiil be protected with CAPTCHA field automatically. If you want
+    to turn this feature off, set::
+
+        GUESTBOOK_USE_CAPTCHA=false
+
+    in your project's ``settings.py`` file.
+
 
 Differences in this branch
 ==========================
@@ -69,3 +81,4 @@ Differences in this branch
 #) All templates extended from project's ``base.html``
 #) Removed debug in "400" template
 #) Changed models
+#) Integrated with `django-simple-captcha <http://code.google.com/p/django-simple-captcha/>`_

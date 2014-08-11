@@ -1,5 +1,4 @@
 from django.template.context import RequestContext
-from functools import wraps
 from django.shortcuts import render_to_response
 
 def render_to(template):

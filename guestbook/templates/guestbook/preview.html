@@ -6,7 +6,7 @@
 {% block content %}
 <h2>{% trans 'Check your response' %}</h2>
 
-<form action="{% url guestbook-post %}" method="POST">
+<form action="{% url 'guestbook_post' %}" method="POST">{% csrf_token %}
     {% if form.errors %}
         <p class='errorlist'>{% trans 'There were errors in the response, please correct them below.' %}</p>
     {% else %}

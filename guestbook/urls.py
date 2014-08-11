@@ -1,23 +1,16 @@
-from django.conf.urls.defaults import *
+# -*- coding: utf-8 -*-
 
-from django.views.generic.list_detail import object_list
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
 
-from models import Entry
-from forms import EntryForm
-from views import post_entry
+admin.autodiscover()
 
-list_dict = { 'queryset' : Entry.objects.filter(visible=True),
-              'template_object_name' : 'entry',
-              'extra_context' : {'form' : EntryForm(), } }
-
-last_page_dict = list_dict.copy()
-last_page_dict.update({'page':'last'})
-
-page_dict = list_dict.copy()
-page_dict.update({'allow_empty' : False})
+from views import post_entry, EntryListView, api_list_entries
 
 urlpatterns = patterns('',
-    url(r'^$', object_list, last_page_dict , name='guestbook-page-last'),
-    url(r'^page(?P<page>[0-9]+)/$', object_list, page_dict, name='guestbook-page'),
-    url(r'^post/', post_entry, name='guestbook-post'),
+    url(r'^$', EntryListView.as_view() , name='guestbook_page_last'),
+    url(r'^page(?P<page>[0-9]+)/$', EntryListView.as_view(), name='guestbook_page'),
+    url(r'^post/', post_entry, name='guestbook_post'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'api/list/', api_list_entries, name='api_guestbook_post'),
 )

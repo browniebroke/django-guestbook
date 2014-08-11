@@ -1,13 +1,18 @@
 from django import http
-from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
-from django.db import models
+#from django.conf import settings
+#from django.core.exceptions import ObjectDoesNotExist
+#from django.core.urlresolvers import reverse
+#from django.db import models
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.html import escape
+from django.http import HttpResponseBadRequest, HttpResponse
 from forms import EntryForm
 from utils import render_to
+
+from django.views.generic.list import ListView
+from models import Entry
+import json
 
 
 @render_to('guestbook/thankyou.html')
@@ -18,7 +23,7 @@ def post_entry(request, next=None):
     HTTP POST is required. If ``POST['submit'] == "preview"`` or if there are
     errors a preview template, ``guestbook/preview.html``, will be rendered.
     """
-
+    print "post_entry method"
     # Require POST
     if request.method != 'POST':
         return http.HttpResponseNotAllowed(["POST"])
@@ -62,3 +67,29 @@ def post_entry(request, next=None):
     entry.save()
 
     return {'form': form}
+
+
+class EntryListView(ListView):
+
+    model = Entry
+    template_name = 'guestbook/entry_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EntryListView, self).get_context_data(**kwargs)
+        context['form'] = EntryForm()
+        return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(visible=True)
+
+
+def api_list_entries(request):
+    entries_list = []
+    for entry in Entry.objects.all():
+        entries_list.append({
+            'email': entry.email,
+            'author': entry.name,
+            'comment': entry.text,
+            'date': entry.submit_date.isoformat()
+        })
+    return HttpResponse(json.dumps(entries_list), content_type="application/json")

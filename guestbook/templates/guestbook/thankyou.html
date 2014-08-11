@@ -4,14 +4,14 @@
 {% block content_title %}{% trans 'Guestbook' %}{% endblock %}
 
 {% block content %} 
-	<h2>{% trans "Thank you for your mention" %}</h2>
-	<p>{% blocktrans %}
-		Thank you for your mention!<br/>
-		Feedback posted for review and will be published soon
+    <h2>{% trans "Thank you for your mention" %}</h2>
+    <p>{% blocktrans %}
+        Thank you for your mention!<br/>
+        Feedback posted for review and will be published soon
         time, if approved by the administrator.<br/>
         {% endblocktrans %}
-	</p><br/>
-	
-	&larr; <a href="{% url guestbook-page-last %}">{% trans "Back to guestbook page" %}</a>
+    </p><br/>
+
+    &larr; <a href="{% url 'guestbook_page_last' %}">{% trans "Back to guestbook page" %}</a>
 
 {% endblock content %}

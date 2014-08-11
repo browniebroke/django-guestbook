@@ -21,7 +21,7 @@ class Entry(models.Model):
     name = models.CharField(_('name'), max_length=200)
     email = models.CharField(_('e-mail'), max_length=100, blank=True, default='email')
 
-    visible = models.BooleanField(("Показывать"), default=False,
+    visible = models.BooleanField(_("Visible"), default=False,
                     help_text=_('Check to show entry on site'))
 
     text = models.TextField(_('comment'), max_length=GUESTBOOK_ENTRY_MAX_LENGTH)

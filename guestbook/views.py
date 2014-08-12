@@ -83,6 +83,15 @@ class EntryListView(ListView):
         return self.model.objects.filter(visible=True)
 
 
+def api_post_entry(request):
+    # Require POST
+    #if request.method != 'POST':
+    #    return http.HttpResponseNotAllowed(["POST"])
+    data = request.POST.copy()
+    print data
+
+
+
 def api_list_entries(request):
     entries_list = []
     for entry in Entry.objects.all():
